@@ -8,8 +8,10 @@ Projeto simples para demonstrar um CRUD: **listar, cadastrar, editar e excluir a
 
 ## Pré-requisitos
 
-- Docker Desktop aberto.
+- JDK 21 instalado e disponível no `PATH` (confira com `java -version`).
 - Node.js instalado (para iniciar o React).
+
+O projeto inclui o Gradle Wrapper, portanto não é preciso instalar o Gradle.
 
 ## Como rodar
 
@@ -18,10 +20,13 @@ Abra **dois terminais** dentro da pasta do projeto.
 ### Terminal 1 — API Java
 
 ```powershell
-docker compose up --build
+cd backend
+.\gradlew.bat bootRun
 ```
 
 A API estará em `http://localhost:8085`.
+
+O arquivo `backend/alunos.db` será criado automaticamente na primeira execução.
 
 Para parar, pressione `Ctrl + C` nesse terminal.
 
@@ -73,16 +78,16 @@ Exemplo de aluno enviado no POST e PUT:
 
 ### Alterou o backend Java
 
-Exemplos: arquivos dentro de `src/main/java`, `application.properties`, `schema.sql`, `Dockerfile` ou `compose.yaml`.
+Exemplos: arquivos dentro de `backend/src/main/java`, `application.properties` ou `schema.sql`.
 
 1. No terminal da API, pressione `Ctrl + C` para parar.
 2. Rode novamente:
 
 ```powershell
-docker compose up --build
+.\gradlew.bat bootRun
 ```
 
-O `--build` é importante: ele recria a imagem Docker com o código Java novo.
+O Spring Boot recompila e inicia o backend novamente.
 
 ### Alterou o frontend React
 
@@ -96,7 +101,7 @@ Faça os dois procedimentos:
 
 ```powershell
 # Terminal da API: pare com Ctrl + C e inicie novamente
-docker compose up --build
+.\gradlew.bat bootRun
 ```
 
 ```powershell
@@ -117,11 +122,11 @@ npm.cmd run dev
 
 ### Alteraram `schema.sql` e querem recriar o banco do zero
 
-> Atenção: o comando abaixo apaga todos os alunos cadastrados no Docker.
+> Atenção: o comando abaixo apaga todos os alunos cadastrados localmente.
 
 ```powershell
-docker compose down -v
-docker compose up --build
+Remove-Item alunos.db
+.\gradlew.bat bootRun
 ```
 
 ## Estrutura do projeto
@@ -131,5 +136,5 @@ src/main/java/                 # Backend Spring Boot
 src/main/resources/schema.sql  # Tabela SQLite
 frontend/                      # Frontend React
 frontend/src/App.jsx           # Tela de CRUD
-compose.yaml                   # Sobe a API com Docker
+gradlew.bat                    # Executa o Gradle no Windows sem instalação prévia
 ```

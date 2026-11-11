@@ -66,7 +66,7 @@ export default function App() {
 
   return (
     <main>
-      <h1>Cadastro de CARROS</h1>
+      <h1>Cadastro de Alunos</h1>
 
       <form onSubmit={salvar}>
         <input
@@ -74,13 +74,6 @@ export default function App() {
           name="nome"
           placeholder="Nome"
           value={dados.nome}
-          onChange={mudarCampo}
-          required
-        />
-          <input
-          name="CPF"
-          placeholder="CPF"
-          value={dados.CPF}
           onChange={mudarCampo}
           required
         />
