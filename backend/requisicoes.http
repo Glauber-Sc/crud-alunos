@@ -1,0 +1,25 @@
+### GET - listar alunos
+GET http://localhost:8080/alunos
+
+### POST - cadastrar aluno
+POST http://localhost:8080/alunos
+Content-Type: application/json
+
+{
+  "nome": "Ana",
+  "email": "ana@email.com",
+  "idade": 20
+}
+
+### PUT - alterar o aluno com id 1
+PUT http://localhost:8080/alunos/1
+Content-Type: application/json
+
+{
+  "nome": "Ana Maria",
+  "email": "ana@email.com",
+  "idade": 21
+}
+
+### DELETE - apagar o aluno com id 1
+DELETE http://localhost:8080/alunos/1
