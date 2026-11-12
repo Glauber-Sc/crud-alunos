@@ -8,10 +8,10 @@ Projeto simples para demonstrar um CRUD: **listar, cadastrar, editar e excluir a
 
 ## Pré-requisitos
 
-- JDK 21 instalado e disponível no `PATH` (confira com `java -version`).
+- Docker Desktop aberto.
 - Node.js instalado (para iniciar o React).
 
-O projeto inclui o Gradle Wrapper, portanto não é preciso instalar o Gradle.
+Não é necessário instalar Java, Gradle ou um servidor de banco de dados na máquina.
 
 ## Como rodar
 
@@ -21,12 +21,12 @@ Abra **dois terminais** dentro da pasta do projeto.
 
 ```powershell
 cd backend
-.\gradlew.bat bootRun
+docker compose up --build
 ```
 
 A API estará em `http://localhost:8085`.
 
-O arquivo `backend/alunos.db` será criado automaticamente na primeira execução.
+O Docker cria e preserva o banco SQLite no volume `alunos_data`.
 
 Para parar, pressione `Ctrl + C` nesse terminal.
 
@@ -84,7 +84,7 @@ Exemplos: arquivos dentro de `backend/src/main/java`, `application.properties` o
 2. Rode novamente:
 
 ```powershell
-.\gradlew.bat bootRun
+docker compose up --build
 ```
 
 O Spring Boot recompila e inicia o backend novamente.
@@ -101,7 +101,7 @@ Faça os dois procedimentos:
 
 ```powershell
 # Terminal da API: pare com Ctrl + C e inicie novamente
-.\gradlew.bat bootRun
+docker compose up --build
 ```
 
 ```powershell
@@ -122,11 +122,11 @@ npm.cmd run dev
 
 ### Alteraram `schema.sql` e querem recriar o banco do zero
 
-> Atenção: o comando abaixo apaga todos os alunos cadastrados localmente.
+> Atenção: o comando abaixo apaga todos os alunos cadastrados no Docker.
 
 ```powershell
-Remove-Item alunos.db
-.\gradlew.bat bootRun
+docker compose down -v
+docker compose up --build
 ```
 
 ## Estrutura do projeto
@@ -136,5 +136,5 @@ src/main/java/                 # Backend Spring Boot
 src/main/resources/schema.sql  # Tabela SQLite
 frontend/                      # Frontend React
 frontend/src/App.jsx           # Tela de CRUD
-gradlew.bat                    # Executa o Gradle no Windows sem instalação prévia
+compose.yaml                   # Sobe a API e o banco SQLite no Docker
 ```
